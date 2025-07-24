@@ -1,0 +1,32 @@
+name: Upstream Sync
+
+permissions:
+  contents: write
+
+  on:
+    schedule:
+      - cron: "0 0 * * *"
+    workflow_dispatch:
+
+jobs:
+  sync_with_upstream:
+    name: Sync with Fork
+    if: ${{ github.event.repository.fork }}
+
+    steps:
+      - name: Check target repository
+        uses: actions/checkout@v3
+
+      - name: Syncronize
+        uses: aormbyFork-Sync-With-Upstream-action@v3.4
+        with:
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: mchigm/CHATu
+          upstream_sync_branch: main
+          target_sync_branch: main
+          test_mode: false
+
+        - name: CheckError
+        if: faliure()
+        run | 
+            echo "[Error] exit 1 cannot sync due to file change"

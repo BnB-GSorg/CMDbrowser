@@ -23,7 +23,7 @@ jobs:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
           upstream_sync_repo: mchigm/CHATu
           upstream_sync_branch: main
-          target_sync_branch: main
+          target_sync_branch: MCHIGMDev_forked
           test_mode: false
 
         - name: CheckError
